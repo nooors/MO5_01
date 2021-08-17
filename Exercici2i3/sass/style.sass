@@ -1,28 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300&display=swap")
 
-//Color variables
-$font-color: white
-$strip1-bgcolor:  #244F75
-$strip2-bgcolor:  #60BFBF 
-$strip3-bgcolor:  #8C4B7E
-$strip4-bgcolor:  #F8BB44
-$strip5-bgcolor:  #F24B4B
+//Variables
+@import 'variables'
 
-//Animations names
-$strip1-name: strip--u4rx9pe
-$strip2-name: strip--u4rx9pg
-$strip3-name: strip--u4rx9q8
-$strip4-name: strip--u4rx9qn
-$strip5-name: strip--u4rx9r0
-
-//@mixin
-@mixin animations($color, $name, $duration, $timing)
-    background-color: $color
-    animation:
-        name: $name
-        duration: $duration
-        timing-function: $timing
-
+//mixins
+@import 'mixins'
 
 /* general */
 *
@@ -47,110 +29,74 @@ h1
     display: flex
     cursor: pointer
 
-.strips .strip 
-    position: relative
-    width: 19.9vw
-    margin: 0.1vw
-    height: 100vh
-    display: flex
-    text-align: center
-    overflow: hidden
-    align-items: center
-    justify-content: center
+    .strip 
+        position: relative
+        width: 19.9vw
+        margin: 0.1vw
+        height: 100vh
+        display: flex
+        text-align: center
+        overflow: hidden
+        align-items: center
+        justify-content: center
 
-.strips .strip .strip_content 
-    display: flex
-    align-items: center
-    justify-content: center
-    position: absolute
-    height: 100vh
-    width: 100%
-    text-align: center
+        .strip_content 
+            display: flex
+            align-items: center
+            justify-content: center
+            position: absolute
+            height: 100vh
+            width: 100%
+            text-align: center
 
 
 /* before */
-.strips .strip_content:before 
-    content: ""
-    display: flex
-    align-items: center
-    justify-content: center
-    position: absolute
-    z-index: 1
-    top: 0
-    left: 0
-    width: 20vw
-    height: 100vh
-    background: white
-    opacity: 0.05
-    -webkit-transform-origin: center center
-    transform-origin: center center
-    -webkit-transform: skew(30deg) scaleY(1) translate(0, 0)
-    transform: skew(30deg) scaleY(1) translate(0, 0)
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1)
-    overflow: hidden
+.strips 
+    .strip_content
+        &:before 
+            content: ""
+            display: flex
+            align-items: center
+            justify-content: center
+            position: absolute
+            z-index: 1
+            top: 0
+            left: 0
+            width: 20vw
+            height: 100vh
+            background: white
+            opacity: 0.05
+            -webkit-transform-origin: center center
+            transform-origin: center center
+            -webkit-transform: skew(30deg) scaleY(1) translate(0, 0)
+            transform: skew(30deg) scaleY(1) translate(0, 0)
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1)
+            overflow: hidden
 
-.strips .strip_content:hover:before 
-    -webkit-transform: skew(0deg) scaleX(2) translate(0, 0)
-    transform: skew(0deg) scaleX(2) translate(0, 0)
-    opacity: 0.2
+.strips 
+    .strip_content
+        &:hover
+            &:before 
+                -webkit-transform: skew(0deg) scaleX(2) translate(0, 0)
+                transform: skew(0deg) scaleX(2) translate(0, 0)
+                opacity: 0.2
 
 
 /* strips 1-5: nth-child 1-5 */
-.strip:nth-child(1) .strip_content
-    @include animations($strip1-bgcolor, $strip1-name, 0.5s, ease-out)
+@for $i from 1 through 5
+    .strip
+        &:nth-child(#{$i}) 
+            .strip_content
+                @include animations(nth($strip-bgcolor, $i), nth($strip-name, $i), nth($strip-time, $i), ease-out)
+                @keyframes #{nth($strip-name, $i)}
+                    from 
+                        transform: translate3d(nth($strip-3dx, $i), nth($strip-3dy, $i), nth($strip-3dz, $i))
 
-@keyframes #{$strip1-name} 
-  from 
-    transform: translate3d(-100%, 0, 0)
-  
-
-.strip:nth-child(2) .strip_content 
-    @include animations($strip2-bgcolor, $strip2-name, 0.8s, ease-out)
-  
-@keyframes #{$strip2-name}
-  from 
-    transform: translate3d(0, 100%, 0)
-  
-
-
-.strip:nth-child(3) .strip_content 
-    @include animations($strip3-bgcolor, $strip3-name, 0.7s, ease-out)
-
-@keyframes #{$strip3-name} 
-  from 
-    transform: translate3d(0, -100%, 0)
-  
-
-
-.strip:nth-child(4) .strip_content
-    @include animations($strip4-bgcolor, $strip4-name, 1s, ease-out)
-
-@keyframes #{$strip4-name}
-    from 
-      transform: translate3d(0, 100%, 0)
-  
-
-
-.strip:nth-child(5) .strip_content
-    @include animations($strip5-bgcolor, $strip5-name, 1.1s, ease-out)
-
-@keyframes #{$strip5-name} 
-    from 
-      transform: translate3d(100%, 0, 0)
   
 
 
 /*# sourceMappingURL=style.css.map */
-    
-  
 
-
-
-
-
-
-//for $i = 1 from $i trough 5
-    //.strip:nth-child(#$i) .strip_content
 
 
 
