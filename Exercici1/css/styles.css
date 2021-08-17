@@ -38,6 +38,10 @@ main {
   padding-bottom: 20px;
 }
 
+main img {
+  margin: 20px;
+}
+
 footer {
   background: #333333;
   padding: 20px 0;
